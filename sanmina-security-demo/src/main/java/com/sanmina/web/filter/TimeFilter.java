@@ -22,7 +22,7 @@ public class TimeFilter implements Filter {
         System.out.println("TimeFilter start");
         Date startDate = new Date();
         chain.doFilter(request, response);
-        System.out.println("spenk time is :" + (new Date().getTime() - startDate.getTime()));
+        System.out.println("spenk time is :" + (System.currentTimeMillis() - startDate.getTime()));
         System.out.println("TimeFilter finish");
     }
 

@@ -1,11 +1,11 @@
 package com.sanmina.web.controller;
 
+//为了避免在使用模拟的mvc的环境的相关方法时重复的声明，将这几个类用静态引入
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +29,10 @@ public class UserControllerTest {
     @Autowired
     private WebApplicationContext wac;
 
+    //伪造mvc的环境，不会真的启动tomcat
     private MockMvc mockMvc;
 
+    //before方法会在每一个测试用例执行前执行
     @Before
     public void setup(){
         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
@@ -46,7 +48,7 @@ public class UserControllerTest {
                 .param("sort", "age,desc") //以age降序排序*/
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.length()").value(3)) //jsonpath 表达式：$表示根元素
+                .andExpect(jsonPath("$.length()").value(3)) //jsonpath 表达式：$表示根元素 doc：github.com/json-path/JsonPath
                 .andReturn().getResponse().getContentAsString();  //把服务器返回的内容以string方式返回
         System.out.println(result);
     }

@@ -14,7 +14,7 @@ import java.util.Date;
 @RequestMapping("/file")
 public class FileController {
 
-    private String folder = "/home/cat/IdeaProjects/sanminasecurity/sanmina-security-demo/src/main/java/com/sanmina/web/controller";
+    private String folder = "E:\\java-workspace\\IDEA-projects\\spring-security-demo-2018-05-21\\springsecurity\\sanmina-security-demo\\src\\main\\java\\com\\sanmina\\web\\controller";
 
     @PostMapping
     /**
@@ -26,7 +26,7 @@ public class FileController {
         System.out.println(file.getSize());
 
 
-         File localFile = new File(folder, new Date().getTime() + ".txt");
+        File localFile = new File(folder, System.currentTimeMillis() + ".txt");
         file.transferTo(localFile);
 
         return new FileInfo(localFile.getAbsolutePath());

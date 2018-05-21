@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,15 +20,17 @@ import java.util.List;
 public class WebConfig extends WebMvcConfigurerAdapter {
 
     //因为timeinterceptor已经声明成一个component，所以可以直接注入
-    @Autowired
+    @Resource
     private TimeInterceptor timeInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //将timeInterceptor注册到拦截器中
-        registry.addInterceptor(timeInterceptor);
+//        registry.addInterceptor(timeInterceptor);
     }
-
+/*
+ 如果没有把filter注册到spring的组件中，则通过这里将filter注册到spring 中，并配置filter过滤的url
+ */
 //    @Bean
     public FilterRegistrationBean timeFilter(){
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();

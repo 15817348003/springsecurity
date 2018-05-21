@@ -33,7 +33,7 @@ public class TimeInterceptor implements HandlerInterceptor {
         System.out.println(((HandlerMethod)handler).getBean().getClass().getName());
         System.out.println(((HandlerMethod)handler).getMethod().getName());
         //rehandle要传参数给postHandle只能通过request传递参数
-        request.setAttribute("startTime", new Date().getTime());
+        request.setAttribute("startTime", System.currentTimeMillis());
 
         //返回true表示放行
         return true;
@@ -50,7 +50,7 @@ public class TimeInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         System.out.println("postHandle");
-        System.out.println("time interceptor 耗时：" + (new Date().getTime() - (long)request.getAttribute("startTime")));
+        System.out.println("time interceptor 耗时：" + (System.currentTimeMillis() - (long)request.getAttribute("startTime")));
     }
 
     /**
@@ -65,7 +65,7 @@ public class TimeInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         System.out.println("afterCompletion");
-        System.out.println("time interceptor 耗时：" + (new Date().getTime() - (long)request.getAttribute("startTime")));
+        System.out.println("time interceptor 耗时：" + (System.currentTimeMillis() - (long)request.getAttribute("startTime")));
         //ExceptionHandler 异常处理器是在afterCompmletion之前执行的，会在这个方法之前把异常处理掉,
         // 所以此时ex为null，除非抛出的异常不是异常处理器处理的异常
         System.out.println("ex is : " + ex);
